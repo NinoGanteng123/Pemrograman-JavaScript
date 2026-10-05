@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Data Pegawai</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tfoot tr {
+            font-weight: bold;
+            background-color: #e6f7ff;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Data Pegawai</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nama Pegawai</th>
+                <th>Umur</th>
+                <th>Jabatan</th>
+                <th>Status</th>
+                <th>Gaji Pokok</th>
+                <th>Tunjangan Jabatan (15%)</th>
+                <th>BPJS (10%)</th>
+                <th>Tunjangan Keluarga (20%)</th>
+                <th>Total Gaji</th>
+            </tr>
+        </thead>
+        <tbody>
+            <script>
+                // Data Input
+                let nama = "Dodi Prayodi";
+                let umur = 25;
+                let jabatan = "Manajer";
+                let status = "Menikah";
+
+                // Gaji Pokok (if / else)
+                let gapok = 0;
+                let jabatanLower = jabatan.toLowerCase();
+
+                if (jabatanLower === "manajer") {
+                    gapok = 15000000;
+                } else if (jabatanLower === "asisten manajer") {
+                    gapok = 10000000;
+                } else if (jabatanLower === "staff") {
+                    gapok = 5000000;
+                }
+
+                // Perhitungan Tunjangan dan BPJS
+                let tunjJabatan = 0.15 * gapok;
+                let bpjs = 0.10 * gapok;
+
+                // Tunjangan Keluarga (Ternary Operator)
+                let tunjKeluarga = (status.toLowerCase() === "menikah") ? (0.20 * gapok) : 0;
+
+                // Total Gaji Individu
+                let totalGaji = gapok + tunjJabatan + bpjs + tunjKeluarga;
+
+                // Format Rupiah
+                function formatRupiah(angka) {
+                    return "Rp " + angka.toLocaleString("id-ID");
+                }
+
+                // Render Baris Data
+                document.write(`
+                    <tr>
+                        <td>${nama}</td>
+                        <td>${umur} tahun</td>
+                        <td>${jabatan}</td>
+                        <td>${status}</td>
+                        <td>${formatRupiah(gapok)}</td>
+                        <td>${formatRupiah(tunjJabatan)}</td>
+                        <td>${formatRupiah(bpjs)}</td>
+                        <td>${formatRupiah(tunjKeluarga)}</td>
+                        <td>${formatRupiah(totalGaji)}</td>
+                    </tr>
+                `);
+            </script>
+        </tbody>
+        <tfoot>
+            <script>
+                // Render Footer Total Gaji
+                document.write(`
+                    <tr>
+                        <td colspan="8" style="text-align: right;">Total Keseluruhan Gaji:</td>
+                        <td>${formatRupiah(totalGaji)}</td>
+                    </tr>
+                `);
+            </script>
+        </tfoot>
+    </table>
+
+</body>
+</html>
